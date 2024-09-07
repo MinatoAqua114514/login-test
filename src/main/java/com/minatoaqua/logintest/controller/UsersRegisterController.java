@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author: JLChen
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user-api")
-public class UserRegisterController {
+public class UsersRegisterController {
 
     @Autowired
     public UsersService usersService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestParam UsersDao usersDao) {
+    public ResponseEntity<String> register(@RequestBody UsersDao usersDao) {
         String result = usersService.registerUser(usersDao);
         return ResponseEntity.ok(result);
     }

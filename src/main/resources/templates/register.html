@@ -2,20 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>用户注册</title>
 </head>
 <body>
-<form action="/user-api/register" class="form" id="registrationForm">
-    <h3>用户注册</h3>
-    <label for="sign_email">
-        <input id="sign_email" name="email" placeholder="请输入邮箱" required type="email"></label>
-    <label for="sign_username">
-        <input id="sign_username" name="username" placeholder="请输入用户名" required type="text"></label>
-    <label for="sign_password">
-        <input id="sign_password" name="password" placeholder="请输入密码" required type="password"></label>
-    <label for="sign_confirmPassword">
-        <input id="sign_confirmPassword" name="confirmPassword" placeholder="请再次输入密码" type="password"></label>
-    <button type="submit">SIGN UP</button>
+<h1>用户注册</h1>
+<form id="registerForm">
+    <label for="username">用户名:</label>
+    <input id="username" name="username" required type="text"><br><br>
+
+    <label for="email">邮箱:</label>
+    <input id="email" name="email" required type="email"><br><br>
+
+    <label for="password">密码:</label>
+    <input id="password" name="password" required type="password"><br><br>
+
+    <button type="submit">注册</button>
 </form>
+
+<p id="responseMessage"></p>
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        const responseMessage = document.getElementById('responseMessage');
+
+        try {
+            const response = await fetch('/user-api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password_hash: password
+                })
+            });
+
+            const result = await response.text();
+            responseMessage.textContent = result;
+        } catch (error) {
+            responseMessage.textContent = '注册失败，请稍后再试。';
+        }
+    });
+</script>
 </body>
 </html>
