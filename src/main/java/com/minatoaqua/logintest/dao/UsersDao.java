@@ -1,5 +1,6 @@
 package com.minatoaqua.logintest.dao;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +12,14 @@ import java.time.LocalDateTime;
  * @description: 实体类 ——Users表
  */
 
-@Getter
+
 @Setter
+@Getter
 public class UsersDao {
     private Integer id;
     private String username;
     private String email;
     private String password_hash;
     private LocalDateTime created_at;
+
 }

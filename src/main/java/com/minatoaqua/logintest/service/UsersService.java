@@ -1,5 +1,6 @@
 package com.minatoaqua.logintest.service;
 
+import com.minatoaqua.logintest.dao.RegisterResponse;
 import com.minatoaqua.logintest.dao.UsersDao;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +13,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UsersService {
-    String registerUser(UsersDao usersDao);
+    RegisterResponse registerUser(UsersDao usersDao);
 }

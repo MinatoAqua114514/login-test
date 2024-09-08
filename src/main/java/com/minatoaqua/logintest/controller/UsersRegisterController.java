@@ -1,13 +1,15 @@
 package com.minatoaqua.logintest.controller;
 
+import com.minatoaqua.logintest.dao.RegisterResponse;
 import com.minatoaqua.logintest.dao.UsersDao;
 import com.minatoaqua.logintest.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author: JLChen
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 
-@Controller
+@RestController
 @RequestMapping("/user-api")
 public class UsersRegisterController {
 
@@ -24,8 +26,13 @@ public class UsersRegisterController {
     public UsersService usersService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UsersDao usersDao) {
-        String result = usersService.registerUser(usersDao);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<RegisterResponse> register(@RequestBody UsersDao usersDao) {
+        RegisterResponse result = usersService.registerUser(usersDao);
+
+        if ("success".equals(result.getStatus())) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
+        }
     }
 }

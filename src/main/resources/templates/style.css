@@ -1,0 +1,20 @@
+/* 简单的样式 */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+#responseMessage {
+    margin-top: 20px;
+    color: red;
+}
